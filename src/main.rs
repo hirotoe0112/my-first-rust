@@ -130,4 +130,88 @@ fn main() {
     // 存在しないインデックスを指定してもエラーにならずNoneが返る
     let get2 = vec2.get(10000);
     println!("{:?}", get2);
+
+    // 文字型
+    // 1文字だけを表す
+    let char = 'a';
+    let char2 = '§';
+    // 文字列型
+    // 文字列リテラル（文字列スライスとも呼ばれる）
+    // 値が変更できない
+    let str = "aaaa";
+    // string型
+    // 値を変更したい場合に使う
+    let str2 = String::from("aaaaa");
+    let str3 = str.to_string();
+    // string型は文字列の長さを変更できるので、push_strで末尾に文字列を追加できる
+    let mut str4 = String::from("abcdefg, ");
+    println!("{}", str4);
+    str4.push_str("abcdef");
+    println!("{}", str4);
+    // +で結合することができる
+    // 左がstring型、右が文字列スライスである必要がある
+    println!("{}", String::from("abc") + "aaaaa");
+    // formatマクロ
+    // printlnは標準出力に出力するが、formatは変数に束縛させることができる
+    let str5 = format!("{}{}", "aaaa", "bbbb");
+    println!("{}", str5);
+    let str6 = format!("{}{}", String::from("ssss"), "bbbb");
+    println!("{}", str6);
+    let str7 = format!("{}{}", "ssss", String::from("bbbb"));
+    println!("{}", str7);
+    let str8 = format!("{}{}", String::from("ttttt"), String::from("bbbb"));
+    println!("{}", str8);
+
+    // 関数の呼び出し
+    sample_function();
+    let result = sample_function2(1, 2);
+    println!("{}", result);
+
+    println!("{}", "block() start");
+    block();
+    println!("{}", "block() end");
+}
+
+// このように値を返さない関数は、戻り値の型が省略されているだけで、
+// 実際はユニット型となっている
+fn sample_function() {
+    println!("{}", "sample function");
+}
+
+// 引数と戻り値がある関数
+fn sample_function2(a: i32, b: i32) -> i32{
+    // returnを書かず、セミコロンなしで書くことで戻り値になる
+    // Rustではこちらの方が一般的
+    // returnは条件分岐などで値を返すときに使う
+    // 式にはセミコロンをつけない
+    // セミコロンをつけないことで式と認識されて戻り値となる
+    a + b
+}
+
+fn block() {
+    // {}で囲まれたものをブロックという
+    // ブロック単体で使うこともできる
+    println!("{}", "a");
+    // ブロック内で宣言された変数はブロック内でしか使えない
+    {
+        println!("{}", "aaaa");
+    }
+    println!("{}", "b");
+
+    // シャドーイング（同じ変数を複数宣言すること）
+    // ブロック内でシャドーイングする
+    let y = 10;
+    println!("{}", y);
+    {
+        let y = 19;
+        println!("{}", y);
+    }
+    // ブロック内の宣言は影響しないため10のまま
+    println!("{}", y);
+
+    // ブロック内でセミコロンをつけずに書くことで値として返却される
+    let z = {
+        200
+    };
+    println!("{}", z);
 }
