@@ -170,6 +170,8 @@ fn main() {
     println!("{}", "block() start");
     block();
     println!("{}", "block() end");
+
+    fnif(10);
 }
 
 // このように値を返さない関数は、戻り値の型が省略されているだけで、
@@ -214,4 +216,43 @@ fn block() {
         200
     };
     println!("{}", z);
+}
+
+fn fnif(num: i32) {
+    // Rustは条件部分は必ず論理型である必要がある
+    // 空の配列だとfalseみたいなことができない
+
+    let x = 5;
+    // 条件にカッコ不要
+    if num > 0 {
+        println!("num > 0");
+    }
+
+    if num > 0 && x == 5 {
+        println!("num > 0 and x = 5");
+    }
+
+    if num > 0 || x == 10 {
+        println!("num > 0 or x = 10")
+    }
+
+    if num < 0 {
+        println!("x軸との交点はない");
+    } else if num == 0 {
+        println!("x軸と接する");
+    } else {
+        println!("x軸と2点で交わる");
+    }
+
+    // ifは文ではなくて式
+    // そのため値を返したり変数に束縛することができる
+    // 値を返す場合はelseで全ての値に対して何らかの値を返す必要がある
+    // 全ての分岐で戻り値の型をそろえる必要がある
+    let ifresult = if num > 0 {
+        "正の数"
+    } else {
+        "正の数ではない"
+    };
+
+    println!("{}", ifresult);
 }
