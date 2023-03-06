@@ -172,6 +172,7 @@ fn main() {
     println!("{}", "block() end");
 
     fnif(10);
+    fnmatch();
 }
 
 // このように値を返さない関数は、戻り値の型が省略されているだけで、
@@ -255,4 +256,27 @@ fn fnif(num: i32) {
     };
 
     println!("{}", ifresult);
+}
+
+fn fnmatch() {
+    // matchはswitch文みたいなもの
+    let x = 0;
+    match x {
+        0 => println!("ZERO"),
+        1 => println!("ichi"),
+        // switchのdefaultみたいなもの
+        // matchは全てのパターンを網羅する必要がある
+        // matchによって条件の記載漏れが検知できる
+        _ => println!("other"),
+    }
+
+    // matchも式なので変数に束縛などができる
+    // ifと同様すべての戻り値の型をそろえる必要がある
+    let result = match x {
+        0 => "aaaa",
+        1 => "bbbbb",
+        _ => "ccccc",
+    };
+    println!("{}", result);
+
 }
